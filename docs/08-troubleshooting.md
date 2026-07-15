@@ -215,7 +215,7 @@ git status
 Expected prompt:
 
 ```text
-root@hostname:~/projects/linux-dev-setup [main =]#
+<username>@hostname:~/projects/linux-dev-setup [main =]#
 ```
 
 ---
@@ -250,6 +250,52 @@ No action is required.
 Wait until the installation completes.
 
 Subsequent executions of `code .` will reuse the installed server.
+
+---
+
+# VS Code integration lost after using `su`
+
+## Problem
+
+After switching from `root` to another user using:
+
+```bash
+su - <username>
+```
+
+the following issues appear:
+
+- `code: command not found`
+- `explorer.exe` not available
+- Missing `WSL_INTEROP`
+- Missing `WSL_DISTRO_NAME`
+
+## Cause
+
+WSL initializes its integration environment only for the default user at session startup.
+
+Using `su -` creates a new login shell without those WSL-specific environment variables.
+
+## Solution
+
+Configure the development user as the default WSL user.
+
+Do not use:
+
+```bash
+su - <username>
+```
+
+Instead, configure WSL to start directly as the desired user.
+
+Verify:
+
+```bash
+whoami
+echo $WSL_DISTRO_NAME
+echo $WSL_INTEROP
+code .
+```
 
 ---
 
