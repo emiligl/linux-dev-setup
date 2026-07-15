@@ -16,8 +16,8 @@ git config --global init.defaultBranch main
 git config --global color.ui auto
 git config --global fetch.prune true
 git config --global push.autoSetupRemote true
-git config --global core.editor vim
 git config --global rerere.enabled true
+git config --global core.editor "code --wait"
 ```
 
 ## Verification
